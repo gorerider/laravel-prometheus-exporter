@@ -1,5 +1,6 @@
 <?php
-namespace traumferienwohnungen\PrometheusExporter\Instrumentation;
+
+namespace gorerider\PrometheusExporter\Instrumentation;
 
 use Prometheus\CollectorRegistry;
 

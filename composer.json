@@ -1,39 +1,47 @@
 {
-    "name": "traum-ferienwohnungen/laravel-prometheus-exporter",
+    "name": "gorerider/laravel-prometheus-exporter",
     "description": "A prometheus exporter for Laravel & Lumen",
-    "keywords": ["laravel", "lumen", "prometheus"],
+    "keywords": ["laravel", "lumen", "prometheus", "instrumentation"],
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Till Backhaus",
             "email": "backhaus@traum-ferienwohnungen.de"
+        },
+        {
+            "name": "Walter Kulisch"
         }
     ],
-    "autoload": {
-        "psr-4": {
-            "traumferienwohnungen\\PrometheusExporter\\": "src/"
-        }
-    },
     "require": {
-        "php" : "^7.1",
-        "jimdo/prometheus_client_php": "^0.9.1",
-        "illuminate/support": "^5.7",
-        "fzaninotto/faker": "~1.7"
+        "php" : "^7.4",
+        "endclothing/prometheus_client_php": "^1.0",
+        "illuminate/support": "^7.22"
     },
     "require-dev": {
-        "illuminate/http": "^5.7",
-        "phpunit/phpunit": "^7.0",
-        "orchestra/testbench": "~3.7",
-        "mockery/mockery": "^1.1"
+        "phpunit/phpunit": "^8.5",
+        "orchestra/testbench": "^5.3"
     },
     "suggest": {
-        "ext-zend-opcache": "Required to provide opcache metrics"
+        "ext-zend-opcache": "Required to provide opcache metrics",
+        "ext-redis": "Required to store metrics in redis",
+        "ext-apcu": "Required to store metrics in APCu"
+    },
+    "autoload": {
+        "psr-4": {
+            "gorerider\\PrometheusExporter\\": "src/",
+            "gorerider\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --testdox",
+        "test-unit": "vendor/bin/phpunit --testdox tests/unit",
+        "test-component": "vendor/bin/phpunit --testdox tests/component"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "traumferienwohnungen\\PrometheusExporter\\LaravelServiceProvider"
+                "gorerider\\PrometheusExporter\\Providers\\LaravelServiceProvider"
             ]
         }
     }

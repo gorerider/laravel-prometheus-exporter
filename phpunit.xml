@@ -11,7 +11,7 @@
 >
 	<testsuites>
 		<testsuite name="Package Test Suite">
-			<directory suffix=".php">./tests/</directory>
+			<directory suffix="Test.php">./tests</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
@@ -22,5 +22,14 @@
 			</exclude>
 		</whitelist>
 	</filter>
-
+	<php>
+		<env name="APP_ENV" value="testing"/>
+        <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
+        <env name="APP_DEBUG" value="true"/>
+        <env name="LOG_LEVEL" value="debug"/>
+		<env name="CACHE_DRIVER" value="array"/>
+		<env name="QUEUE_CONNECTION" value="sync"/>
+		<env name="PROMETHEUS_EXPORTER_ADAPTER" value="memory"/>
+		<env name="PROMETHEUS_EXPORTER_NAMESPACE" value="app"/>
+	</php>
 </phpunit>
