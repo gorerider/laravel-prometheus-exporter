@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Prometheus\CollectorRegistry;
 use gorerider\Tests\BaseTestCase;
+use Illuminate\Http\JsonResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use gorerider\PrometheusExporter\Middleware\PrometheusExporterMiddleware;
 
@@ -88,5 +89,41 @@ class PrometheusExporterMiddlewareTest extends BaseTestCase
         $this->assertEquals('GET /some-path', $actualRoute);
         $this->assertEquals(200, $actualStatusCode);
         $this->assertIsFloat($actualDurationMs);
+    }
+
+    public function testCanReturnResponse()
+    {
+        /** @var CollectorRegistry|MockObject $registry */
+        $registry = $this->getMockBuilder(CollectorRegistry::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $middleware = new PrometheusExporterMiddleware($registry);
+
+        /** @var Request|MockObject $request */
+        $request = $this->getMockBuilder(Request::class)->getMock();
+        $response = new Response();
+        $closure = function () use ($response) { return $response; };
+
+        $actualResponse = $middleware->handle($request, $closure);
+        $this->assertEquals($response, $actualResponse);
+    }
+
+    public function testCanReturnJsonResponse()
+    {
+        /** @var CollectorRegistry|MockObject $registry */
+        $registry = $this->getMockBuilder(CollectorRegistry::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $middleware = new PrometheusExporterMiddleware($registry);
+
+        /** @var Request|MockObject $request */
+        $request = $this->getMockBuilder(Request::class)->getMock();
+        $response = new JsonResponse();
+        $closure = function () use ($response) { return $response; };
+
+        $actualResponse = $middleware->handle($request, $closure);
+        $this->assertEquals($response, $actualResponse);
     }
 }

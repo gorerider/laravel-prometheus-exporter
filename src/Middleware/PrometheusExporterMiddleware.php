@@ -22,7 +22,7 @@ class PrometheusExporterMiddleware
         $this->registry = $registry;
     }
 
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         return $next($request);
     }
