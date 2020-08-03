@@ -40,6 +40,36 @@ class PrometheusExporterMiddlewareTest extends BaseTestCase
             ->terminate(new Request(), new Response());
     }
 
+    public function testTerminateWithResponse()
+    {
+        /** @var PrometheusExporterMiddleware|MockObject $middleware */
+        $middleware = $this->getMockBuilder(PrometheusExporterMiddleware::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['measure'])
+            ->getMock();
+
+        $middleware
+            ->expects($this->once())
+            ->method('measure');
+
+        $middleware->terminate(new Request(), new Response());
+    }
+
+    public function testTerminateWithJsonResponse()
+    {
+        /** @var PrometheusExporterMiddleware|MockObject $middleware */
+        $middleware = $this->getMockBuilder(PrometheusExporterMiddleware::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['measure'])
+            ->getMock();
+
+        $middleware
+            ->expects($this->once())
+            ->method('measure');
+
+        $middleware->terminate(new Request(), new JsonResponse());
+    }
+
     public function testRouteDetails()
     {
         /** @var PrometheusExporterMiddleware|MockObject $middleware */

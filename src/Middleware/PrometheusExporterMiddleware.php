@@ -6,8 +6,8 @@ namespace gorerider\PrometheusExporter\Middleware;
 use Closure;
 use Prometheus\Histogram;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Prometheus\CollectorRegistry;
+use Symfony\Component\HttpFoundation\Response;
 
 class PrometheusExporterMiddleware
 {
